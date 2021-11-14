@@ -4,18 +4,26 @@
     <title>Graph visualizer</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class = "noselect">
+  <body class="noselect">
     <div id="root"></div>
-    <div>
-      <button id="wall">Wall</button>
-      <button id="source">Source</button>
-      <button id="clear">Empty</button>
-    </div>
-    <div>
-      <button id="debug">debug</button>
-      <button id="Empty">Clear board</button>
-      <button id="BFS">BFS</button>
-      <button id="one">1</button>
+    <div class="grid-container">
+      <div class="modifyCells">
+        <p>Modify the cells with these Buttons</p>
+        <button id="wall">Wall</button>
+        <button id="source">Source</button>
+        <button id="clear">Empty</button>
+        <button id="one">Create Walls</button>
+      </div>
+      <div class="modifyGrid">
+        <p>Modify the grid with these Buttons</p>
+        <button id="Empty">Clear board</button>
+        <!-- <button id="debug">debug</button> -->
+      </div>
+      <div class="algo">
+        <p>The following buttons run the desired algorithms</p>
+        <button id="BFS">BFS</button>
+        <!-- <button id="debug">debug</button> -->
+      </div>
     </div>
     <script src="./modules/jQuery.js"></script>
     <script type="module" src="./index.js"></script>

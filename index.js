@@ -70,7 +70,7 @@ recursiveMaze.onclick = function () {
       grid[res[i][j][0]][res[i][j][1]] = "w";
     }
   }
-  stepWiseColor(res, "#0D2414", true);
+  stepWiseColor(res, "#0D2414", false, 10, 10);
 };
 
 /* ----------------------------------- bfs ---------------------------------- */
@@ -79,7 +79,7 @@ bredthFirstSearch.onclick = function () {
   resetConfig(clr, grid);
   vis = [];
   vis = BFS(grid);
-  stepWiseColor(vis, "red", false);
+  stepWiseColor(vis, "red", false, 50, 25);
 };
 
 
@@ -91,7 +91,7 @@ bredthFirstSearch.onclick = function () {
 createTable(r, c, st, grid, clr);
 
 //The folowing code block takes an array of array of coordinates and then colors them with the mentioned color
-function stepWiseColor(result, color, indCell) {
+function stepWiseColor(result, color, indCell, dur1, dur2) {
   var i = 0;
     i = 0;
     myLoopT(result, color);
@@ -106,7 +106,7 @@ function stepWiseColor(result, color, indCell) {
       if (i < result.length) {
         myLoopT();
       }
-    }, 100);
+    }, dur1);
   }
 }
 
@@ -131,7 +131,7 @@ function colorInd(indArr,color){
       if(i<indArr.length){
         myLoopInd();
       }
-    },25);
+    },10);
   }
 }
 
@@ -139,13 +139,13 @@ function colorInd(indArr,color){
 /*                                    test                                    */
 /* -------------------------------------------------------------------------- */
 
-var debug = document.getElementById("debug");
-debug.onclick = function () {
-  console.log("st", st);
-  console.log("grid", grid);
-  console.log("clr", clr);
-  refreshTable(clr);
-};
+// var debug = document.getElementById("debug");
+// debug.onclick = function () {
+//   console.log("st", st);
+//   console.log("grid", grid);
+//   console.log("clr", clr);
+//   refreshTable(clr);
+// };
 
 var clrBrd = document.getElementById("Empty");
 clrBrd.onclick = function () {
