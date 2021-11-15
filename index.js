@@ -4,6 +4,7 @@ import {
   resetConfig,
 } from "./modules/tableModule.js";
 import { BFS } from "./modules/BFS.js";
+import { DFS } from "./modules/DFS.js";
 import { recurMaze } from "./modules/maze.js";
 /* -------------------------------------------------------------------------- */
 /*                              Declare variables                             */
@@ -100,7 +101,7 @@ function stepWiseColor(result, color, indCell, dur1, dur2) {
       if (indCell == false) {
         colorVisited(result[i], color);
       }else{
-        colorInd(result[i],color);
+        colorInd(result[i],color,dur2);
       }
       i++;
       if (i < result.length) {
@@ -120,7 +121,7 @@ function colorVisited(visit, color) {
 
 
 //Takes an array of visited cells and colors them (each cell with a gap in time)
-function colorInd(indArr,color){
+function colorInd(indArr,color,dur){
   var i =0;
   myLoopInd();
   function myLoopInd(){
@@ -131,7 +132,7 @@ function colorInd(indArr,color){
       if(i<indArr.length){
         myLoopInd();
       }
-    },10);
+    },dur);
   }
 }
 
@@ -157,4 +158,17 @@ clrBrd.onclick = function () {
   }
   vis = [];
   refreshTable(clr);
+};
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    test                                    */
+/* -------------------------------------------------------------------------- */
+
+var depthFirstSearch = document.getElementById("DFS");
+depthFirstSearch.onclick = function () {
+  resetConfig(clr, grid);
+  vis = [];
+  vis = DFS(grid);
+  colorInd(vis, "red",  20);
 };
