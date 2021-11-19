@@ -1,3 +1,4 @@
+import { collors } from "./colors.js";
 //Create a table and add click handlers
 export function createTable(r, c, st, grid, clr) {
   var root = document.getElementById("root");
@@ -8,7 +9,7 @@ export function createTable(r, c, st, grid, clr) {
       var cell = document.createElement("td");
       cell.setAttribute("id", i * 100 + j);
       //set background color of cell
-      cell.style.backgroundColor = "#C4C748";
+      cell.style.backgroundColor = collors.emptyColor;
       row.append(cell);
     }
     table.append(row);
@@ -42,11 +43,11 @@ export function resetConfig(clr, grid) {
   for (var i = 0; i < clr.length; i++) {
     for (var j = 0; j < clr[0].length; j++) {
       if (grid[i][j] == "e") {
-        clr[i][j] = "#C4C748";
+        clr[i][j] = collors.emptyColor;
       } else if (grid[i][j] == "w") {
-        clr[i][j] = "#0D2414";
+        clr[i][j] = collors.wallColor;
       } else if (grid[i][j] == "s") {
-        clr[i][j] = "#46C16B";
+        clr[i][j] = collors.sourceColor;
       }
       document.getElementById(100 * i + j).style.backgroundColor = clr[i][j];
     }
