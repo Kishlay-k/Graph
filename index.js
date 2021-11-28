@@ -7,6 +7,7 @@ import { BFS } from "./modules/BFS.js";
 import { DFS } from "./modules/DFS.js";
 import { recurMaze } from "./modules/maze.js";
 import { collors } from "./modules/colors.js";
+import dijkstra from "./modules/dijkstra's algorithm.js";
 /* -------------------------------------------------------------------------- */
 /*                              Declare variables                             */
 /* -------------------------------------------------------------------------- */
@@ -72,7 +73,7 @@ recursiveMaze.onclick = function () {
       grid[res[i][j][0]][res[i][j][1]] = "w";
     }
   }
-  stepWiseColor(res, collors.wallColor, false, 10, 10);
+  stepWiseColor(res, collors.wallColor, true, 10, 10);
 };
 
 /* ----------------------------------- bfs ---------------------------------- */
@@ -120,13 +121,15 @@ function colorVisited(visit, color) {
 }
 
 //Takes an array of visited cells and colors them (each cell with a gap in time)
-function colorInd(indArr, color, dur) {
+function colorInd(indArr, color, dur, refr = true) {
   var i = 0;
   myLoopInd();
   function myLoopInd() {
     setTimeout(function () {
       clr[indArr[i][0]][indArr[i][1]] = color;
-      refreshTable(clr);
+      if (refr) {
+        refreshTable(clr);
+      }
       i++;
       if (i < indArr.length) {
         myLoopInd();
@@ -189,6 +192,7 @@ function initialiseWeight(weight) {
     for (var j = 0; j < c; j++) {
       document.getElementById(i * 100 + j).style.backgroundColor =
         weightedColor[weight[i][j]];
+      clr[i][j] = weightedColor[weight[i][j]];
     }
   }
 }
@@ -199,15 +203,68 @@ wght.onclick = function () {
   initialiseWeight(weight);
 };
 var weightedColor = [
-  "#ffffff",
-  "#e6e6e6",
-  "#cccccc",
-  "#b3b3b3",
-  "#999999",
-  "#808080",
-  "#666666",
-  "#4c4c4c",
-  "#333333",
-  "#191919",
-  "#000000",
+  "#cbe1fc",
+  "#a8cefb",
+  "#85baf9",
+  "#63a6f7",
+  "#4092f6",
+  "#1d7ef4",
+  "#0b6ce2",
+  "#095cbf",
+  "#084b9c",
+  "#063a7a",
+  "#042a57"
 ];
+var djkColor = [
+  "#fbe5cc",
+  "#f9d3aa",
+  "#f6c288",
+  "#f4b166",
+  "#f19f44",
+  "#ef8e22",
+  "#dd7c10",
+  "#bb690e",
+  "#99560b",
+  "#774309",
+  "#552f06",
+  "red"
+];
+
+var dij = document.getElementById("djkstr");
+dij.onclick = function () {
+  for (var i = 0; i < r; i++) {
+    for (var j = 0; j < c; j++) {
+      document.getElementById(i * 100 + j).style.backgroundColor =
+        weightedColor[weight[i][j]];
+      clr[i][j] = weightedColor[weight[i][j]];
+    }
+  }
+  var [d, p, seq] = dijkstra(weight);
+  console.log(p);
+  var curr = 100*(r-1)+c-1;
+  var path = [];
+  while(p[Math.floor(curr/100)][curr%100]!=curr){
+    curr = p[Math.floor(curr/100)][curr%100];
+    path.push(curr);
+  }
+  path.reverse();
+  colorDjkstra(path, 10);
+};
+
+
+function colorDjkstra(indArr, dur) {
+  var i = 0;
+  myLoopInd();
+  function myLoopInd() {
+    setTimeout(function () {
+      clr[Math.floor(indArr[i]/100)][indArr[i]%100] =
+        djkColor[11];
+        // djkColor[weight[Math.floor(indArr[i]/100)][indArr[i]%100]];
+      refreshTable(clr);
+      i++;
+      if (i < indArr.length) {
+        myLoopInd();
+      }
+    }, dur);
+  }
+}

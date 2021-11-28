@@ -1,8 +1,8 @@
 export var collors = {
   background: "#242727",
   wallColor: "#242727",
-  emptyColor: "#ef3339",
-  sourceColor: "#FAC31B",
-  pathColor: "#2d87e2",
-  destinationColor: "#f5f5f5",
+  emptyColor: "#BFC1C5",
+  sourceColor: "#D6463E",
+  pathColor: "#4482E9",
+  destinationColor: "#F5F5F5",
 };
