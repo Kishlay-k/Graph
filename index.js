@@ -213,7 +213,7 @@ var weightedColor = [
   "#095cbf",
   "#084b9c",
   "#063a7a",
-  "#042a57"
+  "#042a57",
 ];
 var djkColor = [
   "#fbe5cc",
@@ -227,7 +227,7 @@ var djkColor = [
   "#99560b",
   "#774309",
   "#552f06",
-  "red"
+  "red",
 ];
 
 var dij = document.getElementById("djkstr");
@@ -240,26 +240,45 @@ dij.onclick = function () {
     }
   }
   var [d, p, seq] = dijkstra(weight);
-  console.log(p);
-  var curr = 100*(r-1)+c-1;
+  console.log(d, p, seq);
+  var curr = 100 * (r - 1) + c - 1;
   var path = [];
-  while(p[Math.floor(curr/100)][curr%100]!=curr){
-    curr = p[Math.floor(curr/100)][curr%100];
+  while (p[Math.floor(curr / 100)][curr % 100] != curr) {
+    curr = p[Math.floor(curr / 100)][curr % 100];
     path.push(curr);
   }
   path.reverse();
-  colorDjkstra(path, 10);
+  colorDjkstra(seq, path, 1);
 };
 
-
-function colorDjkstra(indArr, dur) {
+function colorDjkstra(indArr, path, dur) {
+  console.log(indArr);
   var i = 0;
   myLoopInd();
   function myLoopInd() {
     setTimeout(function () {
-      clr[Math.floor(indArr[i]/100)][indArr[i]%100] =
-        djkColor[11];
+      clr[indArr[i][0]][indArr[i][1]] =
+        djkColor[weight[Math.floor(indArr[i][0])][indArr[i][1]]];
+      // djkColor[11];
+      refreshTable(clr);
+      i++;
+      if (i < indArr.length) {
+        myLoopInd();
+      }else{
+        colorDjkstraPath(path, 10);
+      }
+    }, dur);
+  }
+}
+
+function colorDjkstraPath(indArr, dur) {
+  var i = 0;
+  myLoopInd();
+  function myLoopInd() {
+    setTimeout(function () {
+      clr[Math.floor(indArr[i] / 100)][indArr[i] % 100] =
         // djkColor[weight[Math.floor(indArr[i]/100)][indArr[i]%100]];
+        djkColor[11];
       refreshTable(clr);
       i++;
       if (i < indArr.length) {
